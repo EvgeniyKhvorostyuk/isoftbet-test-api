@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import axios from 'axios';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,7 +16,25 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component(
+    'passport-clients',
+    require('../../js/components/passport/Clients.vue')
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('../../js/components/passport/AuthorizedClients.vue')
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('../../js/components/passport/PersonalAccessTokens.vue')
+);
+
+Vue.component(
+    'transactions',
+    require('./components/TransactionsComponent.vue')
+);
 
 const app = new Vue({
     el: '#app'

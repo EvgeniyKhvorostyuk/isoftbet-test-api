@@ -17,15 +17,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:api')->group(function () {
+    
+    Route::prefix('customers')->group(function () {
+        Route::post('store', 'CustomerController@store');
+        Route::get('{customer_id}/transactions/{transaction_id}', 'CustomerController@transaction');
+    });
+    
+    Route::prefix('transactions')->group(function () {
+        Route::get('/', 'TransactionController@index');
+        Route::post('store', 'TransactionController@store');
+        Route::put('{id}', 'TransactionController@update');
+        Route::delete('{id}', 'TransactionController@destroy');
+    });
 
-Route::prefix('customers')->group(function () {
-    Route::post('store', 'CustomerController@store');
-    Route::get('{customer_id}/transactions/{transaction_id}', 'CustomerController@transaction');
-});
-
-Route::prefix('transactions')->group(function () {
-    Route::get('/', 'TransactionController@index');
-    Route::post('store', 'TransactionController@store');
-    Route::put('{id}', 'TransactionController@update');
-    Route::delete('{id}', 'TransactionController@destroy');
 });
